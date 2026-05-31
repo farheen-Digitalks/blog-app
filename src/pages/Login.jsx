@@ -5,7 +5,7 @@ import { login } from "../services/authService";
 const Login = () => {
     const navigate = useNavigate();
 
-    const [formdata, setFormData] = useState({
+    const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
@@ -14,18 +14,25 @@ const Login = () => {
 
     const handleChange = (e) => {
         setFormData({
-            ...formdata,
+            ...formData,
             [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = async (e) => {
-        e.prevenDefault();
+        e.preventDefault()
 
         try {
             setloading(true);
-            const response = await login(formdata);
-            const { token, user } = response.data;
+
+            const payload = {
+                email: formData.email,
+                password: formData.password
+            };
+
+            const response = await login(payload);
+            console.log(response)
+            const { token, user } = response;
 
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
@@ -54,6 +61,7 @@ const Login = () => {
                     <input
                         type="email"
                         name="email"
+                        value={formData.email}
                         placeholder="Enter your email"
                         onChange={handleChange}
                     />
@@ -61,11 +69,12 @@ const Login = () => {
                     <input
                         type="password"
                         name="password"
+                        value={formData.password}
                         placeholder="Enter your password"
                         onChange={handleChange}
                     />
 
-                    <button disabled={loading}>
+                    <button disabled={loading} type="submit">
                         {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
