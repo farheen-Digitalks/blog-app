@@ -36,27 +36,23 @@ const AppRoutes = () => {
                 <Route
                     path="/admin"
                     element={
-                        <AdminRoute>
-                            <AdminDashboard />
-                        </AdminRoute>
+
+                        <AdminDashboard />
+
                     }
                 />
 
                 <Route
                     path="/admin/users"
                     element={
-                        <AdminRoute>
-                            <ManageUsers />
-                        </AdminRoute>
+                        <ManageUsers />
                     }
                 />
 
                 <Route
                     path="/admin/blogs"
                     element={
-                        <AdminRoute>
-                            <ManageBlogs />
-                        </AdminRoute>
+                        <ManageBlogs />
                     }
                 />
             </Routes>
