@@ -1,41 +1,84 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../services/authService";
 
 const Login = () => {
-  return (
-    <div className="auth-container">
+    const navigate = useNavigate();
 
-      <div className="auth-card">
+    const [formdata, setFormData] = useState({
+        email: "",
+        password: ""
+    })
 
-        <h1>Welcome Back 👋</h1>
-        <p>Login to your account</p>
+    const [loading, setloading] = useState(false);
 
-        <form className="auth-form">
+    const handleChange = (e) => {
+        setFormData({
+            ...formdata,
+            [e.target.name]: e.target.value
+        })
+    }
 
-          <input
-            type="email"
-            placeholder="Enter your email"
-          />
+    const handleSubmit = async (e) => {
+        e.prevenDefault();
 
-          <input
-            type="password"
-            placeholder="Enter your password"
-          />
+        try {
+            setloading(true);
+            const response = await login(formdata);
+            const { token, user } = response.data;
 
-          <button type="submit">
-            Login
-          </button>
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
 
-        </form>
+            navigate("/admin");
+        } catch (error) {
+            alert(
+                error.response?.data?.message ||
+                "Login failed"
+            );
+        } finally {
+            setloading(false);
+        }
+    }
 
-        <div className="auth-footer">
-          Don't have an account?
-          <Link to="/register"> Register</Link>
+    return (
+        <div className="auth-container">
+
+            <div className="auth-card">
+
+                <h1>Welcome Back 👋</h1>
+                <p>Login to your account</p>
+
+                <form onSubmit={handleSubmit} className="auth-form">
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        onChange={handleChange}
+                    />
+
+                    <button disabled={loading}>
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
+
+                <div className="auth-footer">
+                    Don't have an account?
+                    <Link to="/register"> Register</Link>
+                </div>
+
+            </div>
+
         </div>
-
-      </div>
-
-    </div>
-  );
+    );
 };
 
 export default Login;

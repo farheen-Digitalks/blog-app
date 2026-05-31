@@ -1,56 +1,116 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  return (
-    <div className="auth-container">
+    const navigate = useNavigate();
 
-      <div className="auth-card">
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
 
-        <h1>Create Account 🚀</h1>
-        <p>Join Blogify today</p>
+    const [loading, setLoading] = useState(false);
 
-        <form className="auth-form">
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
-          <input
-            type="text"
-            placeholder="Full Name"
-          />
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-          <input
-            type="email"
-            placeholder="Email Address"
-          />
+        if (formData.password !== formData.confirmPassword) {
+            return alert("Passwords do not match");
+        }
 
-           <input
-            type="text"
-            placeholder="Company Name"
-          />
+        try {
+            setLoading(true);
 
-           <input
-            type="text"
-            placeholder="Company Email"
-          />
+            const payload = {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password
+            };
 
-          <input
-            type="password"
-            placeholder="Password"
-          />
+            const response = await registerUser(payload);
 
-          <button type="submit">
-            Register
-          </button>
+            alert(response.data.message);
+            navigate("/login");
 
-        </form>
+        } catch (error) {
 
-        <div className="auth-footer">
-          Already have an account?
-          <Link to="/login"> Login</Link>
+            alert(
+                error.response?.data?.message ||
+                "Registration failed"
+            );
+
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="auth-container">
+
+            <div className="auth-card">
+
+                <h1>Create Account 🚀</h1>
+                <p>Join Blogify today</p>
+
+                <form onSubmit={handleSubmit} className="auth-form">
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Full Name"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="companyName"
+                        placeholder="Company Name"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="companyEmail"
+                        placeholder="Company Email"
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                    />
+
+                    <button disabled={loading}>
+                        {loading ? "Registering..." : "Register"}
+                    </button>
+                </form>
+
+                <div className="auth-footer">
+                    Already have an account?
+                    <Link to="/login"> Login</Link>
+                </div>
+
+            </div>
+
         </div>
-
-      </div>
-
-    </div>
-  );
+    );
 };
 
 export default Register;
