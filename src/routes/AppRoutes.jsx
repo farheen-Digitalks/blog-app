@@ -5,12 +5,12 @@ import {
 } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-
 import Home from "../pages/Home";
-
 import Login from "../pages/Login";
-
 import CreatePost from "../pages/CreatePost";
+import ManageUsers from "../pages/admin/ManageUsers";
+import ManageBlogs from "../pages/admin/ManageBlogs";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 const AppRoutes = () => {
     return (
