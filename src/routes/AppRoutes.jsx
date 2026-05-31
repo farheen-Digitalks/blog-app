@@ -12,6 +12,7 @@ import ManageUsers from "../pages/admin/ManageUsers";
 import ManageBlogs from "../pages/admin/ManageBlogs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminLayout from "../layout/AdminLayout";
+import Register from "../pages/Register";
 
 const AppRoutes = () => {
     return (
@@ -22,6 +23,11 @@ const AppRoutes = () => {
                 <Route
                     path="/"
                     element={<Home />}
+                />
+
+                 <Route
+                    path="/register"
+                    element={<Register />}
                 />
 
                 <Route

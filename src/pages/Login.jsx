@@ -1,23 +1,39 @@
+import { Link } from "react-router-dom";
+
 const Login = () => {
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <form className="flex flex-col gap-4">
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-3 rounded"
-        />
+    <div className="auth-container">
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-3 rounded"
-        />
+      <div className="auth-card">
 
-        <button className="bg-black text-white p-3 rounded">
-          Login
-        </button>
-      </form>
+        <h1>Welcome Back 👋</h1>
+        <p>Login to your account</p>
+
+        <form className="auth-form">
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+          />
+
+          <input
+            type="password"
+            placeholder="Enter your password"
+          />
+
+          <button type="submit">
+            Login
+          </button>
+
+        </form>
+
+        <div className="auth-footer">
+          Don't have an account?
+          <Link to="/register"> Register</Link>
+        </div>
+
+      </div>
+
     </div>
   );
 };
