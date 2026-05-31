@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 
 const AdminDashboard = () => {
 
@@ -23,20 +24,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="dashboard-container">
-
-            <aside className="sidebar">
-                <h2>Admin Panel</h2>
-
-                <ul>
-                    <li>Dashboard</li>
-                    <li>Users</li>
-                    <li>Blogs</li>
-                    <li>Settings</li>
-                </ul>
-            </aside>
-
             <main className="dashboard-content">
-
                 <h1>Dashboard</h1>
 
                 <div className="cards">

@@ -11,11 +11,12 @@ import CreatePost from "../pages/CreatePost";
 import ManageUsers from "../pages/admin/ManageUsers";
 import ManageBlogs from "../pages/admin/ManageBlogs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminLayout from "../layout/AdminLayout";
 
 const AppRoutes = () => {
     return (
         <BrowserRouter>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <Routes>
                 <Route
@@ -33,31 +34,23 @@ const AppRoutes = () => {
                     element={<CreatePost />}
                 />
 
-                <Route
-                    path="/admin"
-                    element={
-
-                        <AdminDashboard />
-
-                    }
-                />
-
-                <Route
-                    path="/admin/users"
-                    element={
-                        <ManageUsers />
-                    }
-                />
-
-                <Route
-                    path="/admin/blogs"
-                    element={
-                        <ManageBlogs />
-                    }
-                />
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboard />} />
+                    <Route
+                        path="users"
+                        element={<ManageUsers />}
+                    />
+                    <Route
+                        path="blogs"
+                        element={<ManageBlogs />}
+                    />
+                    {/* <Route
+                        path="settings"
+                        element={<Settings />}
+                    /> */}
+                </Route>
+            
             </Routes>
-
-
         </BrowserRouter>
     );
 };

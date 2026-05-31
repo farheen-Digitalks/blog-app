@@ -1,49 +1,50 @@
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-//   return (
-//     <div className="bg-black text-white px-6 py-4 flex justify-between">
-//       <h1 className="text-2xl font-bold">
-//         Blog App
-//       </h1>
+    //   return (
+    //     <div className="bg-black text-white px-6 py-4 flex justify-between">
+    //       <h1 className="text-2xl font-bold">
+    //         Blog App
+    //       </h1>
 
-//       <div className="flex gap-4">
-//         <Link to="/">Home</Link>
+    //       <div className="flex gap-4">
+    //         <Link to="/">Home</Link>
 
-//         <Link to="/create">
-//           Create Post
-//         </Link>
+    //         <Link to="/create">
+    //           Create Post
+    //         </Link>
 
-//         <Link to="/login">
-//           Login
-//         </Link>
-//       </div>
-//     </div>
-//   );
+    //         <Link to="/login">
+    //           Login
+    //         </Link>
+    //       </div>
+    //     </div>
+    //   );
 
-  return (
-    <header className="navbar">
+    return (
+        <header className="navbar">
+            <h1 className="text-2xl font-bold">
+                
+            </h1>
 
-      <input
-        type="text"
-        placeholder="Search..."
-      />
+            <div className="navbar-right">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                />
+                <button>
+                    🔔
+                </button>
 
-      <div className="navbar-right">
+                <img
+                    src="https://i.pravatar.cc/40"
+                    alt="profile"
+                />
 
-        <button>
-          🔔
-        </button>
+            </div>
 
-        <img
-          src="https://i.pravatar.cc/40"
-          alt="profile"
-        />
-
-      </div>
-
-    </header>
-  );
+        </header>
+    );
 };
 
 export default Navbar;

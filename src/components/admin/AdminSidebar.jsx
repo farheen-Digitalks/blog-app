@@ -1,32 +1,26 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const AdminSidebar = () => {
   return (
     <aside className="sidebar">
-
       <h2 className="logo">Blogify</h2>
-
       <nav>
 
-        <Link to="/admin/dashboard">
+        <NavLink to="/admin">
           Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/admin/blogs">
-          Blogs
-        </Link>
-
-        <Link to="/admin/users">
+        <NavLink to="/admin/users">
           Users
-        </Link>
+        </NavLink>
 
-        <Link to="/admin/categories">
-          Categories
-        </Link>
+        <NavLink to="/admin/blogs">
+          Blogs
+        </NavLink>
 
-        <Link to="/admin/settings">
+        <NavLink to="/admin/settings">
           Settings
-        </Link>
+        </NavLink>
 
       </nav>
 
@@ -34,4 +28,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;
