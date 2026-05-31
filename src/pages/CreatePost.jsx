@@ -1,79 +1,125 @@
 import { useState } from "react";
-
 import { createPost } from "../services/postService";
 
 const CreatePost = () => {
-  const [title, setTitle] = useState("");
+    const [formData, setFormData] = useState({
+        title: "",
+        content: "",
+        image: null
+    });
 
-  const [content, setContent] =
-    useState("");
+    const [loading, setLoading] =
+        useState(false);
 
-  const [image, setImage] =
-    useState(null);
+    const handleChange = (e) => {
+        const { name, value, files } =
+            e.target;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+        setFormData({
+            ...formData,
+            [name]: files ? files[0] : value
+        });
+    };
 
-    const formData = new FormData();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    formData.append("title", title);
+        try {
+            setLoading(true);
 
-    formData.append("content", content);
+            const data = new FormData();
 
-    if (image) {
-      formData.append("image", image);
-    }
+            data.append(
+                "title",
+                formData.title
+            );
 
-    try {
-      await createPost(formData);
+            data.append(
+                "content",
+                formData.content
+            );
 
-      alert("Post Created");
+            if (formData.image) {
+                data.append(
+                    "image",
+                    formData.image
+                );
+            }
 
-      setTitle("");
-      setContent("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+            await createPost(data);
 
-  return (
-    <div className="max-w-xl mx-auto mt-10">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
-      >
-        <input
-          type="text"
-          placeholder="Title"
-          className="border p-3 rounded"
-          value={title}
-          onChange={(e) =>
-            setTitle(e.target.value)
-          }
-        />
+            alert("Post Created");
 
-        <textarea
-          placeholder="Content"
-          className="border p-3 rounded h-40"
-          value={content}
-          onChange={(e) =>
-            setContent(e.target.value)
-          }
-        />
+            setFormData({
+                title: "",
+                content: "",
+                image: null
+            });
 
-        <input
-          type="file"
-          onChange={(e) =>
-            setImage(e.target.files[0])
-          }
-        />
+        } catch (error) {
 
-        <button className="bg-black text-white p-3 rounded">
-          Create Post
-        </button>
-      </form>
-    </div>
-  );
+            console.log(error);
+
+            alert(
+                error.response?.data?.message ||
+                "Something went wrong"
+            );
+
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="max-w-xl mx-auto mt-10">
+
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-4"
+            >
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter Title"
+                    className="border p-3 rounded"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                />
+
+                <textarea
+                    name="content"
+                    placeholder="Enter Content"
+                    className="border p-3 rounded h-40"
+                    value={formData.content}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    onChange={handleChange}
+                />
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="bg-black text-white p-3 rounded"
+                >
+                    {
+                        loading
+                            ? "Creating..."
+                            : "Create Post"
+                    }
+                </button>
+
+            </form>
+
+        </div>
+    );
 };
 
 export default CreatePost;
