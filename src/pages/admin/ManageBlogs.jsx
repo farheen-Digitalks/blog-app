@@ -16,9 +16,10 @@ const ManageBlogs = () => {
   const getBlogs = async () => {
     try {
 
-      const res = await api.get("/admin/blogs");
+      const res = await api.get(`/admin/blogs/posts?page=${page}&search=${debouncedSearch}`);
 
       setBlogs(res.data);
+      setTotalPage(res.data.totalPges);
 
     } catch (error) {
       console.log(error);
