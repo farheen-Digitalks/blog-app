@@ -13,8 +13,9 @@ import ManageBlogs from "../pages/admin/ManageBlogs";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminLayout from "../layout/AdminLayout";
 import Register from "../pages/Register";
+import { ProtectedRoute } from "../middleware/ProtectedRoute";
 
-const AppRoutes = () => {
+function AppRoutes() {
     return (
         <BrowserRouter>
             {/* <Navbar /> */}
@@ -25,7 +26,7 @@ const AppRoutes = () => {
                     element={<Home />}
                 />
 
-                 <Route
+                <Route
                     path="/register"
                     element={<Register />}
                 />
@@ -40,22 +41,28 @@ const AppRoutes = () => {
                     element={<CreatePost />}
                 />
 
-                <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<AdminDashboard />} />
-                    <Route
-                        path="users"
-                        element={<ManageUsers />}
-                    />
-                    <Route
-                        path="blogs"
-                        element={<ManageBlogs />}
-                    />
-                    {/* <Route
+                <Route
+                    element={<ProtectedRoute />}
+                >
+
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route index element={<AdminDashboard />} />
+                        <Route
+                            path="users"
+                            element={<ManageUsers />}
+                        />
+                        <Route
+                            path="blogs"
+                            element={<ManageBlogs />}
+                        />
+                        {/* <Route
                         path="settings"
                         element={<Settings />}
                     /> */}
+                    </Route>
+
                 </Route>
-            
+
             </Routes>
         </BrowserRouter>
     );
