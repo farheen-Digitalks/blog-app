@@ -38,7 +38,7 @@ const Register = () => {
             const response = await registerUser(payload);
 
             alert(response.data.message);
-            navigate("/login");
+            navigate("/");
 
         } catch (error) {
 

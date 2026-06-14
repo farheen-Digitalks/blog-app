@@ -14,6 +14,8 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminLayout from "../layout/AdminLayout";
 import Register from "../pages/Register";
 import { ProtectedRoute } from "../middleware/ProtectedRoute";
+import SinglePost from "../pages/SinglePost";
+import CreateUser from "../pages/admin/CreateUser";
 
 function AppRoutes() {
     return (
@@ -23,6 +25,11 @@ function AppRoutes() {
             <Routes>
                 <Route
                     path="/"
+                    element={<Login />}
+                />
+
+                <Route
+                    path="/home"
                     element={<Home />}
                 />
 
@@ -32,13 +39,8 @@ function AppRoutes() {
                 />
 
                 <Route
-                    path="/login"
-                    element={<Login />}
-                />
-
-                <Route
-                    path="/create"
-                    element={<CreatePost />}
+                    path="/post/:id"
+                    element={<SinglePost />}
                 />
 
                 <Route
@@ -52,8 +54,16 @@ function AppRoutes() {
                             element={<ManageUsers />}
                         />
                         <Route
+                            path="users/create"
+                            element={<CreateUser />}
+                        />
+                        <Route
                             path="blogs"
                             element={<ManageBlogs />}
+                        />
+                        <Route
+                            path="create"
+                            element={<CreatePost />}
                         />
                         {/* <Route
                         path="settings"

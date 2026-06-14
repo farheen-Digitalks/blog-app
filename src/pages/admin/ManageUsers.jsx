@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
+import UserTable from "../../components/admin/UserTable";
 
 const ManageUsers = () => {
 
@@ -24,18 +25,9 @@ const ManageUsers = () => {
   return (
     <div>
 
-      <h1>Manage Users</h1>
+      <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
 
-      {
-        users.map((user)=>(
-          <div key={user._id}>
-
-            <h3>{user.name}</h3>
-            <p>{user.email}</p>
-
-          </div>
-        ))
-      }
+      <UserTable users={users} />
 
     </div>
   );

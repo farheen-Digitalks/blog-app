@@ -13,5 +13,5 @@ export function ProtectedRoute(){
 
  return token
   ? <Outlet />
-  : <Navigate to="/login"/>
+  : <Navigate to="/"/>
 }
