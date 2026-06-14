@@ -3,7 +3,6 @@ import { createPost } from "../services/postService";
 
 const CreatePost = () => {
     const [formData, setFormData] = useState({
-        title: "",
         content: "",
         image: null
     });
@@ -30,11 +29,6 @@ const CreatePost = () => {
             const data = new FormData();
 
             data.append(
-                "title",
-                formData.title
-            );
-
-            data.append(
                 "content",
                 formData.content
             );
@@ -51,7 +45,6 @@ const CreatePost = () => {
             alert("Post Created");
 
             setFormData({
-                title: "",
                 content: "",
                 image: null
             });
@@ -77,16 +70,6 @@ const CreatePost = () => {
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4"
             >
-
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Enter Title"
-                    className="border p-3 rounded"
-                    value={formData.title}
-                    onChange={handleChange}
-                    required
-                />
 
                 <textarea
                     name="content"

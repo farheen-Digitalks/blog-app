@@ -16,6 +16,7 @@ import Register from "../pages/Register";
 import { ProtectedRoute } from "../middleware/ProtectedRoute";
 import SinglePost from "../pages/SinglePost";
 import CreateUser from "../pages/admin/CreateUser";
+import EditBlog from "../pages/admin/EditBlog";
 
 function AppRoutes() {
     return (
@@ -60,6 +61,10 @@ function AppRoutes() {
                         <Route
                             path="blogs"
                             element={<ManageBlogs />}
+                        />
+                        <Route
+                            path="blogs/edit/:id"
+                            element={<EditBlog />}
                         />
                         <Route
                             path="create"
