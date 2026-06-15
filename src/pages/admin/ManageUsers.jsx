@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import UserTable from "../../components/admin/UserTable";
 import { Users, Plus, X } from "lucide-react";
+import { createUser, getUsers } from "../../services/userService";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -14,17 +15,18 @@ const ManageUsers = () => {
     role: "user"
   });
 
-  const getUsers = async () => {
+  const fetchUsers = async () => {
     try {
-      const res = await api.get("/admin/users");
-      setUsers(res.data);
+      const res = await getUsers();
+      console.log(res)
+      setUsers(res);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getUsers();
+    fetchUsers();
   }, []);
 
   const handleChange = (e) => {
@@ -35,11 +37,11 @@ const ManageUsers = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await api.post("/admin/users", formData);
+      await createUser(formData);
       alert("User created successfully");
       setFormData({ name: "", email: "", password: "", role: "user" });
       setShowCreateForm(false);
-      getUsers(); // Refresh table
+      fetchUsers(); // Refresh table
     } catch (error) {
       console.log(error);
       alert("Failed to create user");
