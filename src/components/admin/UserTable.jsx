@@ -12,10 +12,10 @@ const UserTable = ({ users }) => {
 
                 <tbody className="divide-y divide-gray-100">
                     {users?.map((user, index) => (
-                        <tr 
-                          key={user._id} 
-                          className="hover:bg-blue-50/50 transition-colors duration-200 animate-fade-in-up" 
-                          style={{ animationDelay: `${index * 0.08}s` }}
+                        <tr
+                            key={user._id}
+                            className="hover:bg-blue-50/50 transition-colors duration-200 animate-fade-in-up"
+                            style={{ animationDelay: `${index * 0.08}s` }}
                         >
                             <td className="p-4">
                                 <div className="flex items-center gap-4">
@@ -29,8 +29,8 @@ const UserTable = ({ users }) => {
                                 </div>
                             </td>
                             <td className="p-4">
-                                <span className={`px-3 py-1.5 text-xs font-semibold rounded-full border ${user.role === 'admin' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>
-                                    {(user.role || 'user').toUpperCase()}
+                                <span className={`px-3 py-1.5 text-xs font-semibold rounded-full border ${user.role?.name === 'admin' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>
+                                    {(user.role?.name || 'user').toUpperCase()}
                                 </span>
                             </td>
                             <td className="p-4 text-right">
