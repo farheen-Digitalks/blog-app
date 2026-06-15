@@ -3,6 +3,18 @@ export const checkPermission = (module, action) => {
     if (!token) return false;
 
     try {
+        const userString = localStorage.getItem("user");
+        if (userString) {
+            const user = JSON.parse(userString);
+            if (user && user.isAdmin) {
+                return true;
+            }
+        }
+    } catch (e) {
+        console.error("Error parsing user in checkPermission", e);
+    }
+
+    try {
         const payloadBase64 = token.split('.')[1];
         // handle base64 strings not padded properly
         const base64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
@@ -15,7 +27,7 @@ export const checkPermission = (module, action) => {
 
         // Example: "USERS:READ"
         const requiredPermission = `${module}:${action}`;
-        
+
         return permissions.includes(requiredPermission);
     } catch (e) {
         console.error("Failed to parse token for permissions", e);
