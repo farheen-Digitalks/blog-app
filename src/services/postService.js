@@ -13,3 +13,15 @@ export const createPost = async (formData) => {
 
   return response.data;
 };
+
+export const updatePost = async (id, formData) => {
+  const response = await api.put(
+    `/posts/${id}`,
+    formData
+  );
+  return response.data;
+};
+
+export const deletePost = async (id) => {
+  return await api.delete(`/posts/${id}`);
+};
